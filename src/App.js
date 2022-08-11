@@ -1,8 +1,9 @@
 import React from "react";
-import waldo from './assets/waldo.jpg';
 import './App.css'
 import { initializeApp } from "firebase/app";
-import Menu from "./components/Menu";
+import { getFirestore } from 'firebase/firestore';
+import Header from "./components/Header";
+import Puzzle from "./components/Puzzle";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAM1ToAPFdJqzdaxuk_nrqmALmYlzRsur4",
@@ -14,20 +15,15 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 function App() {
   return (
     <div className="App">
-      <div className="container">
-        <img 
-          src={waldo} 
-          alt=""
-          className="waldo"
-        />
-        <Menu />
-      </div>
+      <Header />
+      <Puzzle />
     </div>
   );
 }
 
-export { App, app };
+export { App, db };

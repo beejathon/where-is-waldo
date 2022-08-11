@@ -1,40 +1,61 @@
 import React, { useEffect } from 'react';
-import { useState } from 'react';
 import {
     ControlledMenu,
+    MenuHeader,
     MenuItem,
     useMenuState
 } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 
-const Menu = () => {
+const Menu = ({coords, handleClick, handleMouseLeave}) => {
   const [menuProps, toggleMenu] = useMenuState();
-  const [anchorPoint, setAnchorPoint] = useState({ x: 0, y: 0 });
 
-  const handleClick = (e) => {
+  const onMouseClick = (e) => {
     e.preventDefault();
-    setAnchorPoint({ x: e.clientX, y: e.clientY });
+    handleClick({ x: e.clientX, y: e.clientY });
     toggleMenu(true);
+  }
+
+  const onMouseLeave = () => {
+    toggleMenu(false);
+    handleMouseLeave();
+  }
+
+  const onKeyDown = (e) => {
+    if (e.key === "Escape") toggleMenu(false)
   }
 
   useEffect(() => {
     const img = document.querySelector('.waldo')
-    img.addEventListener('click', handleClick)
+    img.addEventListener('click', onMouseClick)
+    document.addEventListener('keydown', onKeyDown)
 
     return () => {
-      img.removeEventListener('click', handleClick)
+      img.removeEventListener('click', onMouseClick)
     }
   }, [])
 
   return (
-    <ControlledMenu {...menuProps} anchorPoint={anchorPoint}
-        onMouseLeave={() => toggleMenu(false)}
-        menuClassName="my-menu">
-        <MenuItem>THIS</MenuItem>
-        <MenuItem>IS</MenuItem>
-        <MenuItem>HOW</MenuItem>
-        <MenuItem>WE</MenuItem>
-        <MenuItem>DO</MenuItem>
+    <ControlledMenu 
+      {...menuProps} 
+      anchorPoint={coords}
+      onMouseLeave={onMouseLeave}
+      menuClassName="my-menu">
+      <MenuHeader>
+        Who or what is it?
+      </MenuHeader>
+        <MenuItem
+          onClick={() => console.log(coords)}>
+          THIS
+        </MenuItem>
+        <MenuItem
+          onClick={() => console.log(coords)}>
+          IS HOW
+        </MenuItem>
+        <MenuItem
+          onClick={() => console.log(coords)}>
+          WE DO
+        </MenuItem>
     </ControlledMenu>
 );
 };
