@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     ControlledMenu,
     MenuHeader,
@@ -7,12 +7,15 @@ import {
 } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 
-const Menu = ({coords, handleClick, handleMouseLeave}) => {
+
+
+const Menu = ({handleClick, handleMouseLeave, checkClick}) => {
   const [menuProps, toggleMenu] = useMenuState();
+  const [anchorPoint, setAnchorpoint] = useState({x: 0, y: 0})
 
   const onMouseClick = (e) => {
-    e.preventDefault();
-    handleClick({ x: e.clientX, y: e.clientY });
+    setAnchorpoint({ x: e.clientX, y: e.clientY })
+    handleClick({x: e.clientX, y: e.clientY});
     toggleMenu(true);
   }
 
@@ -32,29 +35,38 @@ const Menu = ({coords, handleClick, handleMouseLeave}) => {
 
     return () => {
       img.removeEventListener('click', onMouseClick)
+      document.removeEventListener('keydown', onKeyDown)
     }
   }, [])
 
   return (
     <ControlledMenu 
       {...menuProps} 
-      anchorPoint={coords}
+      anchorPoint={anchorPoint}
       onMouseLeave={onMouseLeave}
       menuClassName="my-menu">
       <MenuHeader>
         Who or what is it?
       </MenuHeader>
         <MenuItem
-          onClick={() => console.log(coords)}>
-          THIS
+          onClick={checkClick}>
+          good face 1
         </MenuItem>
         <MenuItem
-          onClick={() => console.log(coords)}>
-          IS HOW
+          onClick={checkClick}>
+          good face 2
         </MenuItem>
         <MenuItem
-          onClick={() => console.log(coords)}>
-          WE DO
+          onClick={checkClick}>
+          good face 3
+        </MenuItem>
+        <MenuItem
+          onClick={checkClick}>
+          fish
+        </MenuItem>
+        <MenuItem
+          onClick={checkClick}>
+          dog
         </MenuItem>
     </ControlledMenu>
 );
