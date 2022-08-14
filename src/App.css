@@ -8,7 +8,7 @@ html, body {
 }
 
 .puzzle-container {
-  cursor: crosshair;
+  cursor: none;
 }
 
 .cursor-container {
@@ -28,4 +28,8 @@ html, body {
   width: 30px;
   background-color: rgb(0, 0, 0, 0.4);
   border-radius: 20%;
+}
+
+.menu-item {
+  margin: 0;
 }

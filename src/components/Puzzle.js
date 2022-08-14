@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Menu from "./Menu";
 import Cursor from "./Cursor";
 import waldo from '../assets/waldo.jpg';
-import { collection, query } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../App";
 
 const Puzzle = () => {
@@ -23,7 +23,7 @@ const Puzzle = () => {
     setCoords({ x: e.clientX, y: e.clientY })
   }
 
-  const checkClick = async () => {
+  const getCoords = () => {
     const img = document.querySelector('.waldo');
     const bounds = img.getBoundingClientRect();
     const left = bounds.left;
@@ -37,9 +37,23 @@ const Puzzle = () => {
     const x = parseInt(cx / cw * iw);
     const y = parseInt(cy / ch * ih);
 
-    console.log(x, y)
-    
-    // const q = query(collection(db))
+    return { x: x, y: y }
+  }
+
+  const checkClick = async (id) => {
+    if (!id) return;
+    const {x, y} = getCoords();
+
+    const docRef = doc(db, "waldos", id);
+    const waldo = await getDoc(docRef);
+    const valid = Boolean(
+      waldo.id === id &&
+      x >= waldo.data().xLeft &&
+      x <= waldo.data().xRight &&
+      y >= waldo.data().yTop &&
+      y <= waldo.data().yBottom
+    )
+    console.log(valid)
   }
 
   return (

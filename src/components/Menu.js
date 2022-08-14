@@ -28,6 +28,11 @@ const Menu = ({handleClick, handleMouseLeave, checkClick}) => {
     if (e.key === "Escape") toggleMenu(false)
   }
 
+  const onSelect = (e) => {
+    // console.log(e.syntheticEvent.nativeEvent.target.id)
+    checkClick(e.syntheticEvent.nativeEvent.target.id)
+  }
+
   useEffect(() => {
     const img = document.querySelector('.waldo')
     img.addEventListener('click', onMouseClick)
@@ -48,28 +53,33 @@ const Menu = ({handleClick, handleMouseLeave, checkClick}) => {
       <MenuHeader>
         Who or what is it?
       </MenuHeader>
-        <MenuItem
-          onClick={checkClick}>
+        <MenuItem id="1" onClick={onSelect}>
+          <div id="1" className="menu-item">
           good face 1
+          </div>
         </MenuItem>
-        <MenuItem
-          onClick={checkClick}>
+        <MenuItem id="2" onClick={onSelect}>
+         <div id="2" className="menu-item">
           good face 2
+          </div>
         </MenuItem>
-        <MenuItem
-          onClick={checkClick}>
+        <MenuItem id="3" onClick={onSelect}>
+         <div id="3" className="menu-item">
           good face 3
+          </div>
         </MenuItem>
-        <MenuItem
-          onClick={checkClick}>
+        <MenuItem id="4" onClick={onSelect}>
+          <div id="4" className="menu-item">
           fish
+          </div>
         </MenuItem>
-        <MenuItem
-          onClick={checkClick}>
+        <MenuItem id="5" onClick={onSelect}>
+          <div id="5" className="menu-item">
           dog
+          </div>
         </MenuItem>
     </ControlledMenu>
-);
+  );
 };
 
 export default Menu;
