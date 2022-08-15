@@ -33,3 +33,26 @@ html, body {
 .menu-item {
   margin: 0;
 }
+
+.puzzle-menu {
+  background-color: rgb(0, 0, 0, 0.8);
+  color: white;
+  cursor: pointer;
+  padding: 1.5em;
+  border-radius: 10px;
+}
+
+.dialog-ref {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dialog-menu {
+  background-color: rgb(0, 0, 0, 0.8);
+  color: white;
+  cursor: pointer;
+  padding: 1.5em;
+  border-radius: 10px;
+}

@@ -5,11 +5,9 @@ import {
     MenuItem,
     useMenuState
 } from '@szhsin/react-menu';
-import '@szhsin/react-menu/dist/index.css';
+import '../App.css';
 
-
-
-const Menu = ({handleClick, handleMouseLeave, checkClick}) => {
+const Menu = ({handleClick, toggleClicked, checkClick}) => {
   const [menuProps, toggleMenu] = useMenuState();
   const [anchorPoint, setAnchorpoint] = useState({x: 0, y: 0})
 
@@ -21,7 +19,7 @@ const Menu = ({handleClick, handleMouseLeave, checkClick}) => {
 
   const onMouseLeave = () => {
     toggleMenu(false);
-    handleMouseLeave();
+    toggleClicked();
   }
 
   const onKeyDown = (e) => {
@@ -29,7 +27,7 @@ const Menu = ({handleClick, handleMouseLeave, checkClick}) => {
   }
 
   const onSelect = (e) => {
-    // console.log(e.syntheticEvent.nativeEvent.target.id)
+    toggleMenu(false);
     checkClick(e.syntheticEvent.nativeEvent.target.id)
   }
 
@@ -49,7 +47,7 @@ const Menu = ({handleClick, handleMouseLeave, checkClick}) => {
       {...menuProps} 
       anchorPoint={anchorPoint}
       onMouseLeave={onMouseLeave}
-      menuClassName="my-menu">
+      menuClassName="puzzle-menu">
       <MenuHeader>
         Who or what is it?
       </MenuHeader>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Menu from "./Menu";
 import Cursor from "./Cursor";
+import Dialog from "./Dialog";
 import waldo from '../assets/waldo.jpg';
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../App";
@@ -8,13 +9,15 @@ import { db } from "../App";
 const Puzzle = () => {
   const [coords, setCoords] = useState({x: 0, y: 0});
   const [clicked, setClicked] = useState(false);
+  const [selected, setSelected] = useState(false);
+  const [correct, setCorrect] = useState(false);
 
   const handleClick = (data) => {
     setCoords(data);
     setClicked(true);
   }
 
-  const handleMouseLeave = () => {
+  const toggleClicked = () => {
     setClicked(false);
   }
 
@@ -53,7 +56,12 @@ const Puzzle = () => {
       y >= waldo.data().yTop &&
       y <= waldo.data().yBottom
     )
-    console.log(valid)
+    valid ? setCorrect(true) : setCorrect(false)
+    setSelected(true)
+  }
+
+  const toggleSelect = () => {
+    setSelected(false)
   }
 
   return (
@@ -63,9 +71,14 @@ const Puzzle = () => {
       <Menu 
         coords={coords} 
         handleClick={handleClick} 
-        handleMouseLeave={handleMouseLeave}
+        toggleClicked={toggleClicked}
         clicked={clicked}
         checkClick={checkClick}
+      />
+      <Dialog 
+        selected={selected} 
+        correct={correct} 
+        toggleSelect={toggleSelect} 
       />
     </div>
   )
