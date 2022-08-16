@@ -1,6 +1,7 @@
 import React from "react";
+import Timer from "./Timer";
 
-const Header = () => {
+const Header = ({gameStart}) => {
   return (
     <div className="header">
       <div className="logo">
@@ -9,9 +10,7 @@ const Header = () => {
       <div className="waldo-list">
         123
       </div>
-      <div className="timer">
-        15:00
-      </div> 
+      <Timer gameStart={gameStart}/>
     </div>
   )
 }
