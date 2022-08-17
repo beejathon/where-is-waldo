@@ -1,0 +1,68 @@
+import { collection, limit, onSnapshot, orderBy, query } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { db } from "../App";
+import '../App.css';
+import ScoreInput from "./ScoreInput";
+
+const Scores = (props) => {
+  const {
+    showScores, 
+    isHiScore, 
+    score, 
+    reset
+  } = props;
+  const [open, setOpen] = useState(false);
+  const [scores, setScores] = useState([]);
+  const [showInput, setShowInput] = useState(false)
+
+  const toggleInput = () => {
+    showInput ? setShowInput(false) : setShowInput(true);
+  }
+
+  const closeScores = () => {
+    setOpen(false);
+    reset();
+  }
+
+  useEffect(() => {
+    const scoresRef = collection(db, "highscores");
+    const q = query(scoresRef, orderBy("score", "asc"), limit(10))
+    const unsub = onSnapshot(q, (snapshot) => {
+      setScores(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
+    })
+
+    return unsub;
+  }, [])
+
+  useEffect(() => {
+    if (showScores) setOpen(true)
+    if (isHiScore) toggleInput();
+  }, [showScores]);
+
+  return (
+    <div className={open ? `scores-container` : `hidden`}>
+      <div className="scores">
+        {isHiScore ? (
+          <h2>Congratulations!</h2>
+        ) : ( 
+          <h2>Better luck next time!</h2>
+        )}
+        <div>High Scores</div>
+        <ul>
+          {scores.map((score) => (
+            <li key={score.id}>{score.name} : {score.score}</li>
+          ))}
+        </ul>
+        {showInput && 
+          <ScoreInput 
+            score={score} 
+            toggleInput={toggleInput} 
+          />
+        }
+        <button onClick={closeScores}>Play Again?</button>
+      </div>
+    </div>
+  );
+}
+
+export default Scores;

@@ -13,7 +13,7 @@ const Menu = ({handleClick, toggleClicked, checkClick}) => {
 
   const onMouseClick = (e) => {
     setAnchorpoint({ x: e.clientX, y: e.clientY })
-    handleClick({x: e.clientX, y: e.clientY});
+    handleClick({x: e.pageX, y: e.pageY});
     toggleMenu(true);
   }
 
@@ -23,7 +23,10 @@ const Menu = ({handleClick, toggleClicked, checkClick}) => {
   }
 
   const onKeyDown = (e) => {
-    if (e.key === "Escape") toggleMenu(false)
+    if (e.key === "Escape") {
+      toggleMenu(false)
+      toggleClicked();
+    }
   }
 
   const onSelect = (e) => {
@@ -68,12 +71,12 @@ const Menu = ({handleClick, toggleClicked, checkClick}) => {
         </MenuItem>
         <MenuItem id="4" onClick={onSelect}>
           <div id="4" className="menu-item">
-          fish
+          dog
           </div>
         </MenuItem>
         <MenuItem id="5" onClick={onSelect}>
           <div id="5" className="menu-item">
-          dog
+          jesus
           </div>
         </MenuItem>
     </ControlledMenu>

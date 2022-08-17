@@ -1,17 +1,29 @@
 import React, { useEffect, useState } from "react";
 import '../App.css'
 
-const Start = ({gameStart, toggleGameStart}) => {
+const Start = (props) => {
+  const {
+    gameActive, 
+    toggleGameActive, 
+    showScores, 
+    gameFinished, 
+    toggleGameFinished
+  } = props;
   const [open, setOpen] = useState(false);
 
   const onClick = () => {
     setOpen(false);
-    toggleGameStart();
+    toggleGameActive();
+    toggleGameFinished();
   }
 
   useEffect(() => {
-    if (!gameStart) setOpen(true);
-  }, [gameStart])
+    if (
+      !gameActive && 
+      gameFinished && 
+      !showScores) 
+    setOpen(true);
+  }, [gameActive, gameFinished, showScores])
   
   return (
     <div className={open ? `start-container` : `hidden`}>

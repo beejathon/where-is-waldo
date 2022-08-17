@@ -1,16 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Menu from "./Menu";
 import Cursor from "./Cursor";
 import Dialog from "./Dialog";
 import waldo from '../assets/waldo.jpg';
-import { doc, getDoc } from "firebase/firestore";
+import { 
+  collection,
+  doc, 
+  getDoc,
+  getDocs,
+  limit,
+  orderBy,
+  query, 
+} from "firebase/firestore";
 import { db } from "../App";
 
-const Puzzle = () => {
+const Puzzle = (props) => {
+  const {
+    toggleGameActive,
+    seconds,
+    toggleScores,
+    gameFinished,
+    toggleGameFinished
+  } = props;
   const [coords, setCoords] = useState({x: 0, y: 0});
   const [clicked, setClicked] = useState(false);
-  const [selected, setSelected] = useState(false);
+  const [showCursor, setShowCursor] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
   const [correct, setCorrect] = useState(false);
+  const [found, setFound] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false
+  });
 
   const handleClick = (data) => {
     setCoords(data);
@@ -21,6 +44,14 @@ const Puzzle = () => {
     setClicked(false);
   }
 
+  const toggleDialog = () => {
+    setShowDialog(false)
+  }
+
+  const toggleCursor = () => {
+    showCursor ? setShowCursor(false) : setShowCursor(true);
+  }
+
   const onMouseMove = (e) => {
     if (!clicked)
     setCoords({ x: e.clientX, y: e.clientY })
@@ -28,17 +59,23 @@ const Puzzle = () => {
 
   const getCoords = () => {
     const img = document.querySelector('.waldo');
-    const bounds = img.getBoundingClientRect();
-    const left = bounds.left;
-    const top = bounds.top;
-    const cx = coords.x - left - window.scrollX;
-    const cy = coords.y - top - window.scrollY;
-    const cw = img.clientWidth;
-    const ch = img.clientHeight;
-    const iw = img.naturalWidth;
-    const ih = img.naturalHeight;
-    const x = parseInt(cx / cw * iw);
-    const y = parseInt(cy / ch * ih);
+    let bounds = img.getBoundingClientRect();
+    let offsetX = window.scrollX;
+    let offsetY = window.scrollY;
+    let left = bounds.left + offsetX
+    let top = bounds.top + offsetY;
+    console.log(left, top)
+    // let right = bounds.right + window.scrollX;
+    // let bottom = bounds.bottom + window.scrollY;
+    let cX = coords.x - left;
+    let cY = coords.y - top;
+    let cW = img.clientWidth;
+    let cH = img.clientHeight;
+    let iW = img.naturalWidth;
+    let iH = img.naturalHeight;
+
+    let x = parseInt(cX / cW * iW);
+    let y = parseInt(cY / cH * iH);
 
     return { x: x, y: y }
   }
@@ -46,7 +83,7 @@ const Puzzle = () => {
   const checkClick = async (id) => {
     if (!id) return;
     const {x, y} = getCoords();
-
+    console.log(`x: ${x}, y: ${y}`)
     const docRef = doc(db, "waldos", id);
     const waldo = await getDoc(docRef);
     const valid = Boolean(
@@ -56,18 +93,66 @@ const Puzzle = () => {
       y >= waldo.data().yTop &&
       y <= waldo.data().yBottom
     )
-    valid ? setCorrect(true) : setCorrect(false)
-    setSelected(true)
+    if (valid) {
+      setCorrect(true);
+      setFound({...found, [id]: true});
+    } else {
+      setCorrect(false)
+    }
+    setShowDialog(true);
   }
 
-  const toggleSelect = () => {
-    setSelected(false)
+  const checkGame = () => {
+    let win = Object.values(found).every((value) => value === true)
+    if (win === true) {
+      toggleGameActive();
+      checkScore(seconds);
+    }
   }
+
+  const checkScore = async (score) => {
+    let hiScore = false;
+    const scoresRef = collection(db, "highscores");
+    const q = query(scoresRef, orderBy("score", "asc"), limit(10))
+    const scores = await getDocs(q);
+    scores.forEach((doc) => {
+      if (score < doc.data().score) hiScore = true;
+    })
+    toggleScores(hiScore);
+    toggleGameFinished();
+  }
+
+  const resetPuzzle = () => {
+    setClicked(false);
+    setShowDialog(false);
+    setCorrect(false);
+    setFound({
+      1: false,
+      2: false,
+      3: false,
+      4: false,
+      5: false
+    })
+  }
+
+  useEffect(() => {
+    checkGame();
+  }, [found])
+
+  useEffect(() => {
+    if (!gameFinished) resetPuzzle();
+  }, [gameFinished])
 
   return (
-    <div className="puzzle-container" >
+    <div className="puzzle-container" 
+      onMouseLeave={toggleCursor}
+      onMouseEnter={toggleCursor}>
       <img src={waldo} alt="wimmelbilder" className="waldo" onMouseMove={onMouseMove} />
-      { clicked || <Cursor coords={coords} /> }
+      <Cursor 
+        coords={coords}
+        clicked={clicked}
+        showCursor={showCursor}
+       />
       <Menu 
         coords={coords} 
         handleClick={handleClick} 
@@ -76,9 +161,9 @@ const Puzzle = () => {
         checkClick={checkClick}
       />
       <Dialog 
-        selected={selected} 
+        showDialog={showDialog} 
         correct={correct} 
-        toggleSelect={toggleSelect} 
+        toggleDialog={toggleDialog} 
       />
     </div>
   )

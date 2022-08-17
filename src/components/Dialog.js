@@ -1,23 +1,23 @@
 import React, { useEffect, useRef } from "react";
 import {
   ControlledMenu,
-  MenuHeader,
   MenuItem,
   useMenuState
 } from '@szhsin/react-menu';
 import '../App.css';
 
-const Dialog = ({selected, correct, toggleSelect}) => {
+const Dialog = (props) => {
+  const {showDialog, correct, toggleDialog} = props;
   const ref = useRef(null);
   const [menuProps, toggleMenu] = useMenuState({ transition: true });
 
   useEffect(() => {
-    if (selected) toggleMenu(true)
-  }, [selected])
+    if (showDialog) toggleMenu(true)
+  }, [showDialog])
 
   const closeDialog = () => {
-    toggleMenu(false)
-    toggleSelect()
+    toggleMenu(false);
+    toggleDialog();
   }
 
   return (
@@ -27,8 +27,9 @@ const Dialog = ({selected, correct, toggleSelect}) => {
         onClose={closeDialog}
         menuClassName="dialog-menu">
         { correct ? 
-          <MenuHeader>YUP</MenuHeader>
-          : <MenuHeader>NOPE</MenuHeader>}  
+          <h1>YUP!</h1> :
+          <h1>NOPE!</h1>
+        }  
         <MenuItem>Close Window</MenuItem>
       </ControlledMenu>
     </>
