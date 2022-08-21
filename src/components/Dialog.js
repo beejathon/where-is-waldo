@@ -5,6 +5,7 @@ import {
   useMenuState
 } from '@szhsin/react-menu';
 import '../App.css';
+import '@szhsin/react-menu/dist/index.css'
 
 const Dialog = (props) => {
   const {showDialog, correct, toggleDialog} = props;
@@ -27,10 +28,17 @@ const Dialog = (props) => {
         onClose={closeDialog}
         menuClassName="dialog-menu">
         { correct ? 
-          <h1>YUP!</h1> :
-          <h1>NOPE!</h1>
-        }  
-        <MenuItem>Close Window</MenuItem>
+          <MenuItem>
+          <span class="material-icons">
+            check_circle
+          </span> Correct
+          </MenuItem> :
+          <MenuItem>
+          <span class="material-icons">
+            cancel
+          </span> Try again
+          </MenuItem>
+        }
       </ControlledMenu>
     </>
   );

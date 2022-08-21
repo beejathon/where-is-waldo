@@ -37,15 +37,15 @@ const Puzzle = (props) => {
 
   const handleClick = (data) => {
     setCoords(data);
-    setClicked(true);
+    toggleClicked();
   }
 
   const toggleClicked = () => {
-    setClicked(false);
+    clicked ? setClicked(false) : setClicked(true);
   }
 
   const toggleDialog = () => {
-    setShowDialog(false)
+    showDialog ? setShowDialog(false) : setShowDialog(true);
   }
 
   const toggleCursor = () => {
@@ -60,13 +60,8 @@ const Puzzle = (props) => {
   const getCoords = () => {
     const img = document.querySelector('.waldo');
     let bounds = img.getBoundingClientRect();
-    let offsetX = window.scrollX;
-    let offsetY = window.scrollY;
-    let left = bounds.left + offsetX
-    let top = bounds.top + offsetY;
-    console.log(left, top)
-    // let right = bounds.right + window.scrollX;
-    // let bottom = bounds.bottom + window.scrollY;
+    let left = bounds.left + window.scrollX;
+    let top = bounds.top + window.scrollY;
     let cX = coords.x - left;
     let cY = coords.y - top;
     let cW = img.clientWidth;
@@ -99,7 +94,7 @@ const Puzzle = (props) => {
     } else {
       setCorrect(false)
     }
-    setShowDialog(true);
+    toggleDialog();
   }
 
   const checkGame = () => {
@@ -118,6 +113,7 @@ const Puzzle = (props) => {
     scores.forEach((doc) => {
       if (score < doc.data().score) hiScore = true;
     })
+    toggleClicked();
     toggleScores(hiScore);
     toggleGameFinished();
   }
@@ -159,6 +155,7 @@ const Puzzle = (props) => {
         toggleClicked={toggleClicked}
         clicked={clicked}
         checkClick={checkClick}
+        found={found}
       />
       <Dialog 
         showDialog={showDialog} 
