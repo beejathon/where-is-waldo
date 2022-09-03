@@ -21,9 +21,10 @@ const ScoreInput = ({score, toggleInput}) => {
 
   return (
     <div className="score-input">
-      <input maxLength="10" onChange={onChange} className="initials"></input>
+      <label htmlFor="name">Enter your name: </label>
+      <input name="name" maxLength="10" onChange={onChange} className="initials"></input>
       <div className="user-score">Your time: {score}</div>
-      <button onClick={onClick} className="submit-score">Submit Score</button>
+      <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onClick={onClick}>Submit Score</button>
     </div>
   )
 }

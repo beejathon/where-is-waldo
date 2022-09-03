@@ -39,6 +39,7 @@ const Dialog = (props) => {
           </span> Try again
           </MenuItem>
         }
+        <MenuItem>Close Window</MenuItem>
       </ControlledMenu>
     </>
   );

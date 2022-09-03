@@ -78,7 +78,6 @@ const Puzzle = (props) => {
   const checkClick = async (id) => {
     if (!id) return;
     const {x, y} = getCoords();
-    console.log(`x: ${x}, y: ${y}`)
     const docRef = doc(db, "waldos", id);
     const waldo = await getDoc(docRef);
     const valid = Boolean(
@@ -92,7 +91,7 @@ const Puzzle = (props) => {
       setCorrect(true);
       setFound({...found, [id]: true});
     } else {
-      setCorrect(false)
+      setCorrect(false);
     }
     toggleDialog();
   }
@@ -113,8 +112,8 @@ const Puzzle = (props) => {
     scores.forEach((doc) => {
       if (score < doc.data().score) hiScore = true;
     })
-    toggleClicked();
     toggleScores(hiScore);
+    setShowDialog(false);
     toggleGameFinished();
   }
 

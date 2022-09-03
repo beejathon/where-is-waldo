@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Puzzle from "./components/Puzzle";
 import Start from "./components/Start";
 import Scores from "./components/Scores";
+import Footer from "./components/Footer";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAM1ToAPFdJqzdaxuk_nrqmALmYlzRsur4",
@@ -82,8 +83,9 @@ function App() {
         score={seconds}
         reset={reset}
       />
-      <div className={gameActive ? 'overlay hidden' : 'overlay'} />
-    </div>
+      <Footer />
+      <div className={gameActive ? 'hidden' : 'overlay'} />
+  </div>
   );
 }
 

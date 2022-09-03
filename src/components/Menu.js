@@ -7,6 +7,11 @@ import {
 } from '@szhsin/react-menu';
 import '../App.css';
 import '@szhsin/react-menu/dist/index.css'
+import waldo1 from '../assets/1.png'
+import waldo2 from '../assets/2.png'
+import waldo3 from '../assets/3.png'
+import waldo4 from '../assets/4.png'
+import waldo5 from '../assets/5.png'
 
 const Menu = ({handleClick, toggleClicked, checkClick, found}) => {
   const [menuProps, toggleMenu] = useMenuState();
@@ -53,33 +58,25 @@ const Menu = ({handleClick, toggleClicked, checkClick, found}) => {
       onMouseLeave={onMouseLeave}
       menuClassName="puzzle-menu">
       <MenuHeader>
-        Who or what is it?
+        <div className="menu-header">
+          Who or what is it?
+        </div>
       </MenuHeader>
-        <MenuItem id="1" onClick={onSelect} disabled={found[1]}>
-          <div id="1" className="menu-item">
-          good face 1
-          </div>
-        </MenuItem>
-        <MenuItem id="2" onClick={onSelect} disabled={found[2]}>
-         <div id="2" className="menu-item">
-          good face 2
-          </div>
-        </MenuItem>
-        <MenuItem id="3" onClick={onSelect} disabled={found[3]}>
-         <div id="3" className="menu-item">
-          good face 3
-          </div>
-        </MenuItem>
-        <MenuItem id="4" onClick={onSelect} disabled={found[4]}>
-          <div id="4" className="menu-item">
-          dog
-          </div>
-        </MenuItem>
-        <MenuItem id="5" onClick={onSelect} disabled={found[5]}>
-          <div id="5" className="menu-item">
-          jesus
-          </div>
-        </MenuItem>
+      <MenuItem className="menu-item" id="1" onClick={onSelect} disabled={found[1]}>
+        Vanilla Face <img src={waldo1} alt="waldo1" /> 
+      </MenuItem>
+      <MenuItem className="menu-item" id="2" onClick={onSelect} disabled={found[2]}>
+        Spoony Eyes <img src={waldo2} alt="waldo2" /> 
+      </MenuItem>
+      <MenuItem className="menu-item" id="3" onClick={onSelect} disabled={found[3]}>
+        Smiling Serenely <img src={waldo3} alt="waldo3" />
+      </MenuItem>
+      <MenuItem className="menu-item" id="4" onClick={onSelect} disabled={found[4]}>
+        Good Boy <img src={waldo4} alt="waldo4" />
+      </MenuItem>
+      <MenuItem className="menu-item" id="5" onClick={onSelect} disabled={found[5]}>
+        Jesus on the Cross <img src={waldo5} alt="waldo5" />
+      </MenuItem>
     </ControlledMenu>
   );
 };

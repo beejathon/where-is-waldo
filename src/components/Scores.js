@@ -41,26 +41,31 @@ const Scores = (props) => {
 
   return (
     <div className={open ? `scores-container` : `hidden`}>
-      <div className="scores">
-        {isHiScore ? (
-          <h2>Congratulations!</h2>
-        ) : ( 
-          <h2>Better luck next time!</h2>
-        )}
-        <div>High Scores</div>
-        <ul>
+      {isHiScore ? (
+        <h2>New high score!</h2>
+      ) : ( 
+        <h2>Better luck next time!</h2>
+      )}
+      <div className="scores-table">
+        <p className="scores-header">High Scores</p>
+        <ul className="demo-list-icon mdl-list">
           {scores.map((score) => (
-            <li key={score.id}>{score.name} : {score.score}</li>
+            <li className="mdl-list__item" key={score.id}>
+              <span class="mdl-list__item-primary-content">
+              <i class="material-icons mdl-list__item-icon">person</i>
+              {score.name} : {score.score}
+              </span>             
+            </li>
           ))}
         </ul>
-        {showInput && 
-          <ScoreInput 
-            score={score} 
-            toggleInput={toggleInput} 
-          />
-        }
-        <button onClick={closeScores}>Play Again?</button>
       </div>
+      {showInput && 
+        <ScoreInput 
+          score={score} 
+          toggleInput={toggleInput} 
+        />
+      }
+      <button className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent" onClick={closeScores}>Play Again?</button>
     </div>
   );
 }

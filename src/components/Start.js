@@ -33,22 +33,22 @@ const Start = (props) => {
   return (
     <div className={open ? `start-container` : `hidden`}>
       <div className="start-menu">
-        <h1>Welcome</h1>
-        <h3>How to play: find them all in the painting!</h3>
+        <p>Welcome!</p>
+        <p>Try to find all these people and things in the image as quickly as you can.</p>
         <div className="waldos-wrapper">
-          <div className="pic-container">
+          <div className="waldo-container">
             <img src={waldo1} alt="waldo1" />
           </div>
-          <div className="pic-container">
+          <div className="waldo-container">
             <img src={waldo2} alt="waldo2" />
           </div>
-          <div className="pic-container">
+          <div className="waldo-container">
             <img src={waldo3} alt="waldo3" />
           </div>
-          <div className="pic-container">
+          <div className="waldo-container">
             <img src={waldo4} alt="waldo4" />
           </div>
-          <div className="pic-container">
+          <div className="waldo-container">
             <img src={waldo5} alt="waldo5" />
           </div>
         </div>
