@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/where-is-waldo/precache-manifest.a3ee187342be907893c8dfe487580269.js"
+  "/where-is-waldo/precache-manifest.3ae739db87acd17463c05956e7f8264c.js"
 );
 
 workbox.clientsClaim();

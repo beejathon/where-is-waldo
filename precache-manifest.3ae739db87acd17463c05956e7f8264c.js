@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "f8f5a31b23b119e06065",
+    "revision": "62000d72f3ad392b5689",
     "url": "/where-is-waldo/static/css/main.7a194e99.chunk.css"
   },
   {
-    "revision": "f8f5a31b23b119e06065",
-    "url": "/where-is-waldo/static/js/main.f8f5a31b.chunk.js"
+    "revision": "62000d72f3ad392b5689",
+    "url": "/where-is-waldo/static/js/main.62000d72.chunk.js"
   },
   {
     "revision": "8e869f294817ed29c951",
@@ -44,7 +44,7 @@ self.__precacheManifest = [
     "url": "/where-is-waldo/static/media/waldo.e7d972c5.jpg"
   },
   {
-    "revision": "af550bf21578e5d67b12048b4b5e651a",
+    "revision": "7bbece900c3ebfc653e1074fbe6dcf3c",
     "url": "/where-is-waldo/index.html"
   }
 ];
