@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "62000d72f3ad392b5689",
+    "revision": "c2cd8510baf1180d29ef",
     "url": "/where-is-waldo/static/css/main.7a194e99.chunk.css"
   },
   {
-    "revision": "62000d72f3ad392b5689",
-    "url": "/where-is-waldo/static/js/main.62000d72.chunk.js"
+    "revision": "c2cd8510baf1180d29ef",
+    "url": "/where-is-waldo/static/js/main.c2cd8510.chunk.js"
   },
   {
     "revision": "8e869f294817ed29c951",
@@ -20,12 +20,12 @@ self.__precacheManifest = [
     "url": "/where-is-waldo/static/js/runtime~main.fb9632a8.js"
   },
   {
-    "revision": "7cb0ae022863ac2606b88b473e3f3565",
-    "url": "/where-is-waldo/static/media/1.7cb0ae02.png"
+    "revision": "70b2a0285b1f126f02d26ac44aa1613f",
+    "url": "/where-is-waldo/static/media/1.70b2a028.png"
   },
   {
-    "revision": "9375420d37ef552efba12273f9e2914f",
-    "url": "/where-is-waldo/static/media/2.9375420d.png"
+    "revision": "31b0f80f7627ea2f7131b87489d049d4",
+    "url": "/where-is-waldo/static/media/2.31b0f80f.png"
   },
   {
     "revision": "fd6f1646ddfd3bedb14800b92f59a573",
@@ -36,15 +36,15 @@ self.__precacheManifest = [
     "url": "/where-is-waldo/static/media/4.46d7908b.png"
   },
   {
-    "revision": "1b187642c2bb4f1996ea5cb856fb3eaf",
-    "url": "/where-is-waldo/static/media/5.1b187642.png"
+    "revision": "3dd1b6c3477c2c7078269f2378ea95d7",
+    "url": "/where-is-waldo/static/media/5.3dd1b6c3.png"
   },
   {
     "revision": "e7d972c5f70b75a4be1898643205f8b5",
     "url": "/where-is-waldo/static/media/waldo.e7d972c5.jpg"
   },
   {
-    "revision": "7bbece900c3ebfc653e1074fbe6dcf3c",
+    "revision": "e6dbc938928c8b08136420ab7d985cd0",
     "url": "/where-is-waldo/index.html"
   }
 ];
